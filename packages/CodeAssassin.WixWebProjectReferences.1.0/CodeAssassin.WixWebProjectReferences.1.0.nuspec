@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>CodeAssassin.WixWebProjectReferences</id>
+    <version>1.0</version>
+    <title>Wix Web Project References</title>
+    <authors>Jason Stangroome</authors>
+    <owners>Jason Stangroome</owners>
+    <licenseUrl>https://bitbucket.org/jstangroome/configtransform/src/091f3a462aa9/WixWebProjectReferences/licence.txt</licenseUrl>
+    <projectUrl>https://bitbucket.org/jstangroome/configtransform</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Enables a WiX project to harvest the content files and all files in the \bin\ folder (including dependencies) of a referenced Web project for both local builds and Team Foundation Builds.</description>
+    <summary>Enables a WiX project to harvest all files in a referenced Web project.</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>WiX Web</tags>
+  </metadata>
+</package>

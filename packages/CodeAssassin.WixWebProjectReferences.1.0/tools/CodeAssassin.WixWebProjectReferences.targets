@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <ItemDefinitionGroup>
+    <WebProjectReference>
+      <Visible>false</Visible>
+    </WebProjectReference>
+  </ItemDefinitionGroup>
+
+  <Target Name="ConvertWebProjectReferencesToHarvestProjects" BeforeTargets="ConvertReferences">
+
+    <ItemGroup>
+      <_WebProjectReference Include="@(WebProjectReference)" Condition=" '$(OutDir)' != '$(OutputPath)' ">
+        <ProjectDir>$(OutDir)_PublishedWebsites\%(FileName)\</ProjectDir>
+      </_WebProjectReference>
+      <_WebProjectReference Include="@(WebProjectReference)" Condition=" '$(OutDir)' == '$(OutputPath)' ">
+        <ProjectDir>%(RootDir)%(Directory)</ProjectDir>
+      </_WebProjectReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <HarvestProject Include="@(_WebProjectReference)">
+        <HeatOutput>$(IntermediateOutputPath)_%(FileName)_Content.wxs</HeatOutput>
+        <ProjectOutputGroups>Content</ProjectOutputGroups>
+        <DirectoryIds>%(RefTargetDir)</DirectoryIds>
+        <ProjectName>%(FileName)</ProjectName>
+      </HarvestProject>
+
+      <HarvestDirectory Include="%(_WebProjectReference.ProjectDir)bin">
+        <ComponentGroupName>%(FileName).Binaries</ComponentGroupName>
+        <DirectoryRefId>%(RefTargetDir)</DirectoryRefId>
+        <PreprocessorVariable>var.%(FileName).TargetDir</PreprocessorVariable>
+        <SuppressCom>true</SuppressCom>
+        <SuppressRegistry>true</SuppressRegistry>
+      </HarvestDirectory>
+    </ItemGroup>
+
+    <PropertyGroup>
+      <ProjectReferenceDefineConstants>
+        $(ProjectReferenceDefineConstants);
+        %(_WebProjectReference.FileName).TargetDir=%(_WebProjectReference.ProjectDir)bin;
+        %(_WebProjectReference.FileName).ProjectDir=%(_WebProjectReference.ProjectDir);
+      </ProjectReferenceDefineConstants>
+    </PropertyGroup>
+
+  </Target>
+
+</Project>

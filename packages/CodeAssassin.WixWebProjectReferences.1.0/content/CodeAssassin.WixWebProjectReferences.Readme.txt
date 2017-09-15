@@ -1,0 +1,28 @@
+To reference a Web project, open the WiX project (*.wixproj) file for editing
+and add the following at the end of the file immediately before the closing 
+</Project> tag:
+
+  <ItemGroup>
+    <WebProjectReference Include="[relative path to web project]\[web project name].csproj">
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </WebProjectReference>
+  </ItemGroup>
+
+The value "INSTALLLOCATION" used as the example value for the <RefTargetDir>
+element can be substituted with the Id of another <Directory> element declared
+in your Product.wxs file.
+
+The <WebProjectReference> element can be repeated for each Web project output
+to be harvested for inclusion in the WiX project.
+
+Once a <WebProjectReference> item has been added to the WiX project file,
+reference the harvested component groups inside a <Feature> element declared in
+your Product.wxs file:
+
+  <Feature [...] >
+    <ComponentGroupRef Id="[web project name].Binaries" />
+    <ComponentGroupRef Id="[web project name].Content" />
+  </Feature>
+
+An example replacement value for [web project name] in both the above snippets
+would be "WebApplication1".
